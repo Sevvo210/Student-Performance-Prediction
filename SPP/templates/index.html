@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Performance Comparison</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .model-box {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .model-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #007bff;
+            font-size: 1.5rem;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+        .metric {
+            font-weight: bold;
+            color: #007bff;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #ddd;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f0f2f5;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Student Performance Prediction</h2>
+    </header>
+    <div class="container">
+        <div class="model-box">
+            <h3>Random Forest</h3>
+            <ul>
+                <li><span class="metric">Accuracy:</span> {{ rf_accuracy }}</li>
+                <li><span class="metric">MAE:</span> {{ rf_mae }}</li>
+                <li><span class="metric">MSE:</span> {{ rf_mse }}</li>
+                <li><span class="metric">R²:</span> {{ rf_r2 }}</li>
+                <li><span class="metric">Cross-Validation R² Scores:</span></li>
+                <ul>
+                    {% for score in rf_cv_scores %}
+                        <li>{{ score }}</li>
+                    {% endfor %}
+                </ul>
+            </ul>
+            <img src="data:image/png;base64,{{ rf_plot_url }}" alt="Random Forest Performance Plot">
+        </div>
+
+        <div class="model-box">
+            <h3>Linear Regression</h3>
+            <ul>
+                <li><span class="metric">Accuracy:</span> {{ lr_accuracy }}</li>
+                <li><span class="metric">MAE:</span> {{ lr_mae }}</li>
+                <li><span class="metric">MSE:</span> {{ lr_mse }}</li>
+                <li><span class="metric">R²:</span> {{ lr_r2 }}</li>
+                <li><span class="metric">Cross-Validation R² Scores:</span></li>
+                <ul>
+                    {% for score in lr_cv_scores %}
+                        <li>{{ score }}</li>
+                    {% endfor %}
+                </ul>
+            </ul>
+            <img src="data:image/png;base64,{{ lr_plot_url }}" alt="Linear Regression Performance Plot">
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Model Comparison Dashboard. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
